@@ -21,6 +21,8 @@ import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import AuthButtons from "./AuthButtons";
+import CreateAccountInput from "./CreateAccountInputs";
+import LoginInputs from "./LoginInputs";
 
 type ModalProps = {};
 
@@ -38,8 +40,8 @@ const AuthModal = ({}: ModalProps) => {
 
   useEffect(() => {
     if (user) handleClose();
-    console.log('user', user)
-  }, [user])
+    console.log("user", user);
+  }, [user]);
 
   return (
     <>
@@ -56,35 +58,15 @@ const AuthModal = ({}: ModalProps) => {
           <Stack m="24px" spacing={6}>
             {modalState.view === "signin" || modalState.view === "signup" ? (
               <>
-                <AuthButtons />
-                <Divider />
+                {modalState.view === "signin" && (
+                  <>
+                    <AuthButtons />
+                    <Divider />
+                    <LoginInputs />
+                  </>
+                )}
 
-                <Stack spacing={3}>
-                  <Input placeholder="Email" />
-                  <Input placeholder="Password" />
-                </Stack>
-
-                <Stack spacing={3}>
-                  <Button
-                    backgroundColor="black"
-                    color="white"
-                    borderRadius="full"
-                    _hover={{ backgroundColor: "500" }}
-                  >
-                    Sign in
-                  </Button>
-                  <Button
-                    borderRadius="full"
-                    border="1px solid"
-                    borderColor="gray.200"
-                    backgroundColor="white"
-                    onClick={() =>
-                      setAuthModalState({ open: true, view: "resetpassword" })
-                    }
-                  >
-                    Forgot password?
-                  </Button>
-                </Stack>
+                {modalState.view === "signup" && <CreateAccountInput />}
               </>
             ) : (
               <Input placeholder="Email" />

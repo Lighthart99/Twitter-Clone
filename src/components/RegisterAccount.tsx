@@ -1,27 +1,31 @@
-import { Button, Flex, Icon, Image, Input, InputGroup, InputLeftElement, Stack, Text } from "@chakra-ui/react";
-import React from "react";
-import { FiSearch } from "react-icons/fi";
+import { auth } from "@/firebase/firebase";
+import {
+  Button,
+  Flex, Image, Stack,
+  Text
+} from "@chakra-ui/react";
+import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import toast from "react-hot-toast";
+import { useSetRecoilState } from "recoil";
+import { authModalState } from "./atoms/authModalAtom";
 
 type RegisterAccountProps = {};
 
 function RegisterAccount({}: RegisterAccountProps) {
+  const setAuthModalState = useSetRecoilState(authModalState);
+  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+
+  const handleSignInWithGoogle = async () => {
+    try {
+      await signInWithGoogle();
+      toast.success("Succesfully Logged in");
+    } catch (error: any) {
+      console.error(error);
+      toast.error("An error occurred while logging out.");
+    }
+  };
   return (
     <>
-      <InputGroup>
-        <InputLeftElement
-          pointerEvents="none"
-          children={<Icon as={FiSearch} color="gray.400" />}
-        />
-        <Input
-          type="tel"
-          placeholder="Search Twitter"
-          color="gray.400"
-          backgroundColor="gray.100"
-          borderRadius="full"
-          border="none"
-        />
-      </InputGroup>
-
       <Flex direction="column" mt="20px">
         <Text fontSize="20px" fontWeight={700}>
           New on Twitter
@@ -37,7 +41,7 @@ function RegisterAccount({}: RegisterAccountProps) {
           borderColor="gray.200"
           borderRadius="full"
           _hover={{ borderColor: "blue.500" }}
-          // onClick={() => signInWithGoogle()}
+          onClick={() => handleSignInWithGoogle()}
           // isLoading={loading}
         >
           <Image src="/images/logos/google-icon.svg" mr={2} alt="google-icon" />
@@ -63,7 +67,7 @@ function RegisterAccount({}: RegisterAccountProps) {
           borderColor="gray.200"
           borderRadius="full"
           _hover={{ borderColor: "blue.500" }}
-          // onClick={() => signInWithGoogle()}
+          onClick={() => setAuthModalState({open: true, view: 'signup'})}
           // isLoading={loading}
         >
           Create Account
@@ -102,3 +106,6 @@ function RegisterAccount({}: RegisterAccountProps) {
 }
 
 export default RegisterAccount;
+function signInWithGoogle(): void {
+  throw new Error("Function not implemented.");
+}

@@ -8,15 +8,16 @@ type LoginBarProps = {};
 
 function LoginBar({}: LoginBarProps) {
   const setAuthModalState = useSetRecoilState(authModalState);
+
   return (
     <>
-    <AuthModal/>
     <Flex
       width="100%"
+      backgroundColor="blue.500"
       position="fixed"
       bottom={0}
       left={0}
-      backgroundColor="blue.500"
+      zIndex={1}
     >
       <Container maxW="800px" padding="8px">
         <Flex direction="row" alignItems="center">
@@ -37,7 +38,7 @@ function LoginBar({}: LoginBarProps) {
               >
               Log in
             </Button>
-            <Button borderRadius="full">Sign Up</Button>
+            <Button borderRadius="full" onClick={() => setAuthModalState({ open: true, view: "signup"})}>Sign Up</Button>
           </Stack>
         </Flex>
       </Container>

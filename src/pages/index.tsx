@@ -4,6 +4,7 @@ import ModalLogin from "@/components/modal/auth/AuthModal";
 import Navigation from "@/components/navigation/Navigation";
 import UserMenu from "@/components/navigation/UserMenu";
 import RegisterAccount from "@/components/RegisterAccount";
+import SearchBar from "@/components/SearchBar";
 import { auth } from "@/firebase/firebase";
 import {
   Box,
@@ -22,14 +23,15 @@ import { User } from "firebase/auth";
 import { Inter } from "next/font/google";
 import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
 interface HomeProps {
-  user?: User;
 }
 
-export default function Home({ user }: HomeProps) {
+export default function Home({}: HomeProps) {
+  const [user, loading, error] = useAuthState(auth);
   return (
     <Box>
       <AuthModal />
@@ -41,8 +43,8 @@ export default function Home({ user }: HomeProps) {
             width="240px"
             p="16px"
           >
-            <Navigation />
-            {!user && <UserMenu/>}
+            <Navigation user={user} />
+            {user && <UserMenu user={user} />}
           </Flex>
 
           <Flex
@@ -78,12 +80,13 @@ export default function Home({ user }: HomeProps) {
           </Flex>
 
           <Flex direction="column" width="380px" padding="8px 24px">
-            <RegisterAccount />
+            <SearchBar />
+            {!user && <RegisterAccount />}
           </Flex>
         </Flex>
       </Container>
 
-      {user && <LoginBar />}
+      {!user && <LoginBar />}
     </Box>
   );
 }

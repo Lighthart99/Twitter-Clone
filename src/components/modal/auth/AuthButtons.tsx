@@ -1,11 +1,22 @@
 import { auth } from "@/firebase/firebase";
 import { Button, Image, Stack } from "@chakra-ui/react";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import toast from "react-hot-toast";
 
 type AuthButtonsProps = {};
 
 const AuthButtons = ({}: AuthButtonsProps) => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+
+  const handleSignInWithGoogle = async () => {
+    try {
+      await signInWithGoogle();
+      toast.success("Succesfully Logged in")
+    } catch (error: any) {
+      console.error(error);
+      toast.error('An error occurred while logging out.');
+    }
+  }
 
   console.log("user signedin", auth);
 
@@ -17,7 +28,7 @@ const AuthButtons = ({}: AuthButtonsProps) => {
         borderColor="gray.200"
         borderRadius="full"
         _hover={{ borderColor: "blue.500" }}
-        onClick={() => signInWithGoogle()}
+        onClick={() => handleSignInWithGoogle()}
         isLoading={loading}
       >
         <Image src="/images/logos/google-icon.svg" mr={2} alt="google-icon" />
