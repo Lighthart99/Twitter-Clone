@@ -11,6 +11,7 @@ import {
   MenuList,
   WrapItem,
   Text,
+  Image,
 } from "@chakra-ui/react";
 import { signOut, User } from "firebase/auth";
 import React, { useEffect } from "react";
@@ -20,9 +21,10 @@ import { constSelector } from "recoil";
 
 type UserMenuProps = {
   user?: User | null;
+  userPhoto: any;
 };
 
-function UserMenu({ user }: UserMenuProps) {
+function UserMenu({ user, userPhoto }: UserMenuProps) {
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -39,12 +41,12 @@ function UserMenu({ user }: UserMenuProps) {
     <>
       <Flex height="full" alignItems="flex-end">
         <Menu>
-          <MenuButton as={Button}>
+          <MenuButton as={Button} backgroundColor="white">
             <Flex direction="row" alignItems="center">
-              <Avatar
-                name="Dan Abrahmov"
-                src="https://bit.ly/dan-abramov"
-                boxSize="32px"
+              <Image
+                borderRadius="full"
+                src={userPhoto}
+                boxSize="28px"
                 mr={2}
               />
               <Text fontSize="10pt" fontWeight={700}>

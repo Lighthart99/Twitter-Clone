@@ -1,6 +1,7 @@
 import LoginBar from "@/components/LoginBar";
 import AuthModal from "@/components/modal/auth/AuthModal";
 import ModalLogin from "@/components/modal/auth/AuthModal";
+import TweetModal from "@/components/modal/TweetModal";
 import Navigation from "@/components/navigation/Navigation";
 import UserMenu from "@/components/navigation/UserMenu";
 import RegisterAccount from "@/components/RegisterAccount";
@@ -32,9 +33,12 @@ interface HomeProps {
 
 export default function Home({}: HomeProps) {
   const [user, loading, error] = useAuthState(auth);
+
   return (
     <Box>
+      {/* Modals */}
       <AuthModal />
+      <TweetModal userPhoto={user.photoURL}/>
       <Container maxW="1280px" height="100vh">
         <Flex direction="row">
           <Flex
@@ -44,7 +48,7 @@ export default function Home({}: HomeProps) {
             p="16px"
           >
             <Navigation user={user} />
-            {user && <UserMenu user={user} />}
+            {user && <UserMenu user={user} userPhoto={user.photoURL} />}
           </Flex>
 
           <Flex

@@ -53,7 +53,7 @@ const AuthModal = ({}: ModalProps) => {
             {modalState.view === "signup" && "Sign up to Twitter"}
             {modalState.view === "resetpassword" && "Forgot Password"}
           </ModalHeader>
-          <ModalCloseButton left="8px" rounded="full" />
+          <ModalCloseButton left="8px" rounded="full" /> 
 
           <Stack m="24px" spacing={6}>
             {modalState.view === "signin" || modalState.view === "signup" ? (
