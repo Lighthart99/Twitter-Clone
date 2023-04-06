@@ -6,6 +6,7 @@ import Navigation from "@/components/navigation/Navigation";
 import UserMenu from "@/components/navigation/UserMenu";
 import RegisterAccount from "@/components/RegisterAccount";
 import SearchBar from "@/components/SearchBar";
+import TweetFeed from "@/components/tweet/TweetFeed";
 import { auth } from "@/firebase/firebase";
 import {
   Box,
@@ -38,7 +39,7 @@ export default function Home({}: HomeProps) {
     <Box>
       {/* Modals */}
       <AuthModal />
-      <TweetModal userPhoto={user.photoURL}/>
+      <TweetModal userPhoto={user?.photoURL}/>
       <Container maxW="1280px" height="100vh">
         <Flex direction="row">
           <Flex
@@ -59,28 +60,7 @@ export default function Home({}: HomeProps) {
             borderRight="1px"
             borderColor="gray.100"
           >
-            <Flex direction="column">
-              <Flex padding="16px">
-                <Text fontSize="20px" fontWeight={700}>
-                  Home
-                </Text>
-              </Flex>
-              <Tabs>
-                <TabList>
-                  <Tab width="50%">For you</Tab>
-                  <Tab width="50%">Following</Tab>
-                </TabList>
-
-                <TabPanels>
-                  <TabPanel>
-                    <p>For you</p>
-                  </TabPanel>
-                  <TabPanel>
-                    <p>Following</p>
-                  </TabPanel>
-                </TabPanels>
-              </Tabs>
-            </Flex>
+            <TweetFeed user={user}/>
           </Flex>
 
           <Flex direction="column" width="380px" padding="8px 24px">

@@ -7,7 +7,7 @@ import {
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
 import { useSetRecoilState } from "recoil";
-import { authModalState } from "./atoms/authModalAtom";
+import { authModalState } from "../atoms/authModalAtom";
 
 type RegisterAccountProps = {};
 

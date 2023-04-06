@@ -11,7 +11,7 @@ import { GoGear } from "react-icons/go";
 import { User } from "firebase/auth";
 import { HiOutlineMail } from "react-icons/hi";
 import { useSetRecoilState } from "recoil";
-import { tweetModalState } from "../atoms/tweetModalAtom";
+import { tweetModalState } from "../../atoms/tweetModalAtom";
 
 type NavigationProps = {
   user?: User | null;

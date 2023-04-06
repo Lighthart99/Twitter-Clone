@@ -1,4 +1,4 @@
-import { authModalState } from "@/components/atoms/authModalAtom";
+import { authModalState } from "@/atoms/authModalAtom";
 import { auth } from "@/firebase/firebase";
 import {
   Button,

@@ -1,7 +1,7 @@
 import { Flex, Container, Stack, Button, Text } from "@chakra-ui/react";
 import React from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { authModalState } from "./atoms/authModalAtom";
+import { authModalState } from "../atoms/authModalAtom";
 import AuthModal from "./modal/auth/AuthModal";
 
 type LoginBarProps = {};
